@@ -777,7 +777,8 @@ public class Calculate extends ActionSupport{
           response.setCharacterEncoding("UTF-8");
           doc.write(out);
           out.flush();
-          out.close();	     
+          out.close();	 
+          System.out.println("sadf");
 	}
 	//下载结论部分end
 
