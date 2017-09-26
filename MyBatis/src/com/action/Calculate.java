@@ -778,7 +778,7 @@ public class Calculate extends ActionSupport{
           doc.write(out);
           out.flush();
           out.close();	     
-	      
+	      System.out.println("测试给git啊");
 	}
 	//下载结论部分end
 

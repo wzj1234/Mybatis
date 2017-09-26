@@ -67,6 +67,7 @@
 <script>
 //s:debug
       //echarts start
+      //要改纵坐标
    	 require.config({
                paths: {
                    echarts: 'echarts-2.2.7/build/dist'
