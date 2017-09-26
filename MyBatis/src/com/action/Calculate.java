@@ -778,7 +778,6 @@ public class Calculate extends ActionSupport{
           doc.write(out);
           out.flush();
           out.close();	 
-          System.out.println("sadf");
 	}
 	//下载结论部分end
 
