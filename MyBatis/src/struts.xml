@@ -1,0 +1,43 @@
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+	"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- 声明包 -->
+	<package name="myPackage" extends="struts-default">
+		<!-- 定义action -->
+		<action name="getE" class="com.action.Calculate">
+			<result name="SUCCESS">Food.jsp</result>
+			<result name="aaa">Food.jsp</result>			
+		</action>
+		<action name="downloadAskCalResult" class="com.action.Calculate" method="downloadAskCalResult">
+		</action>
+		<action name="downloadAllCalResult" class="com.action.Calculate" method="downloadAllCalResult">
+		</action>
+		<action name="downloadConclusion" class="com.action.Calculate" method="downloadConclusion">
+		</action>
+		<action name="downloadConclusionNorUser" class="com.action.CalculateNorUser" method="downloadConclusion">
+		</action>
+		<action name="downloadAction" class="com.action.DownloadAction">
+			<result name="SUCCESS">index.jsp</result>
+			<result name="IOE">filenotfound.jsp</result>
+		</action>
+		<action name="downloadManual" class="com.action.DownloadManual">
+			<result name="SUCCESS">index.jsp</result>
+			<result name="IOE">filenotfound.jsp</result>
+		</action>
+		<action name="manage" class="com.action.ManageAction">
+			<result name="SUCCESS">managerIndex.jsp</result>
+			<result name="FAIL">managerLogin.jsp</result>
+		</action>
+		
+		<action name="getENorUser" class="com.action.CalculateNorUser">
+			<result name="SUCCESS">FoodNorUser.jsp</result>
+		</action>
+		<action name="downloadAskCalResultNorUser" class="com.action.CalculateNorUser" method="downloadAskCalResult">
+		</action>
+		<action name="downloadAllCalResultNorUser" class="com.action.CalculateNorUser" method="downloadAllCalResult">
+		</action>
+	</package>
+	<include file="file.xml"/>
+	
+</struts>

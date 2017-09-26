@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.ExcelDao">
+	<insert id="insert_Food_consumption_data" parameterType="com.model.Food_consumption_data" >
+        REPLACE INTO four (age,foodType,foodName,foodConsume) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.age},#{item.foodType},#{item.foodName},#{item.foodConsume})
+        </foreach>
+    </insert>
+    <insert id="insert_user_Food_consumption_data" parameterType="com.model.Food_consumption_data" >
+        REPLACE INTO fournoruser (age,foodType,foodName,foodConsume) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.age},#{item.foodType},#{item.foodName},#{item.foodConsume})
+        </foreach>
+    </insert>
+    <insert id="insert_Import_table_format" parameterType="com.model.Import_table_format" >
+        REPLACE INTO one (radio,foodName,content,foodType) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.radio},#{item.foodName},#{item.content},#{item.foodType})
+        </foreach>
+    </insert>
+    <insert id="insert_user_Import_table_format" parameterType="com.model.Import_table_format" >
+        REPLACE INTO onenoruser (radio,foodName,content,foodType) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.radio},#{item.foodName},#{item.content},#{item.foodType})
+        </foreach>
+    </insert>
+    <insert id="insert_Table_six" parameterType="com.model.Table_six" >
+        REPLACE INTO six (foodType,SD,number) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.foodType},#{item.SD},#{item.number})
+        </foreach>
+    </insert>
+    <insert id="insert_user_Table_six" parameterType="com.model.Table_six" >
+        REPLACE INTO sixnoruser (foodType,SD,number) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.foodType},#{item.SD},#{item.number})
+        </foreach>
+    </insert>
+    <insert id="insert_Limiting_Concentration" parameterType="com.model.Limiting_concentration" >
+        REPLACE INTO lkjtable (radio,foodType,LKJ) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.radio},#{item.foodType},#{item.LKJ})
+        </foreach>
+    </insert>
+    <insert id="insert_Radios" parameterType="com.model.Radios" >
+        REPLACE INTO two (radio,age,organ,organContent) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.radio},#{item.age},#{item.organ},#{item.organContent})
+        </foreach>
+    </insert>
+    <insert id="insert_Table_wto" parameterType="com.model.Table_wto" >
+        REPLACE INTO wto (organ,Wt) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.organ},#{item.Wt})
+        </foreach>
+    </insert>
+    <update id="clearRAE">
+        <![CDATA[TRUNCATE TABLE medicine.rae]]>  
+	</update>
+	<update id="clearSVT">
+        <![CDATA[TRUNCATE TABLE medicine.svttable]]>  
+	</update>
+	<update id="clearSVTRA">
+        <![CDATA[TRUNCATE TABLE medicine.svtratable]]>  
+	</update>
+	<update id="clearFOUR">
+        <![CDATA[TRUNCATE TABLE medicine.four]]>  
+	</update>
+	<update id="clearLKJTABLE">
+        <![CDATA[TRUNCATE TABLE medicine.lkjtable]]>  
+	</update>
+	<update id="clearONE">
+        <![CDATA[TRUNCATE TABLE medicine.one]]>  
+	</update>
+	<update id="clearWTO">
+        <![CDATA[TRUNCATE TABLE medicine.wto]]>  
+	</update>
+	<update id="clearTWO">
+        <![CDATA[TRUNCATE TABLE medicine.two]]>  
+	</update>
+	<update id="clearSIX">
+        <![CDATA[TRUNCATE TABLE medicine.six]]>  
+	</update>
+		<update id="clearONENORUSER">
+        <![CDATA[TRUNCATE TABLE medicine.onenoruser]]>  
+	</update>
+	<update id="clearFOURNORUSER">
+        <![CDATA[TRUNCATE TABLE medicine.fournoruser]]>  
+	</update>
+	<update id="clearSIXNORUSER">
+        <![CDATA[TRUNCATE TABLE medicine.sixnoruser]]>  
+	</update>
+</mapper>

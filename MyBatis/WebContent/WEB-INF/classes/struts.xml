@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE struts PUBLIC  
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  
+"http://struts.apache.org/dtds/struts-2.0.dtd">  
+   
+<struts>
+	<package name="pwserver-main" extends="struts-default"> 
+		<interceptors> 
+	    	<interceptor name ="auth" class ="edu.pwserver.interceptor.AuthorityInterceptor" />
+	    	<interceptor name ="xget" class ="edu.pwserver.interceptor.GetMethodInterceptor" />
+	    	<interceptor-stack name="authority">
+                <interceptor-ref name="auth"></interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+            <interceptor-stack name="reject-get">
+                <interceptor-ref name="xget"></interceptor-ref>
+                <interceptor-ref name="auth"></interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+	    </interceptors>
+	    <default-interceptor-ref name="authority" />
+	    <default-action-ref name="index" />
+	    <default-class-ref class="edu.pwserver.action.DefaultActionSupport" />
+	    
+	    <global-results>
+		    <result name="errorHandler" type="chain">
+		    	<param name="actionName">error</param>
+		    </result>
+		    <result name="exceptionHandler" type="chain">
+		    	<param name="actionName">exception</param>
+		    </result>
+		</global-results>
+	    <action name="error" class="edu.pwserver.action.IllegalAction">
+	    	<result name="0">/WEB-INF/pages/error.jsp</result>
+	    </action>
+	    <action name="exception" class="edu.pwserver.action.ExceptionAction">
+	    	<result name="0">/WEB-INF/pages/exception.jsp</result>
+	    </action>
+	    
+        <action name="login" class="edu.pwserver.action.LoginAction">
+            <result name="SUCCESS" type="redirectAction">home</result>
+            <result name="ERROR" type="redirectAction">
+            	<param name="actionName">index</param>  
+        		<param name="message">${message}</param>
+        		<param name="encode">true</param>
+            </result>
+        </action>
+        <action name="logout" class="edu.pwserver.action.LogoutAction">  
+            <result type="redirectAction">index</result>  
+        </action>
+        
+        <action name="index" class="edu.pwserver.action.IndexAction">  
+            <result name="0">/WEB-INF/pages/index.jsp</result>
+            <result name="1" type="redirectAction">login</result>
+        </action>
+        
+        <action name="home" class="edu.pwserver.action.HomeAction">  
+            <result>/WEB-INF/pages/home.jsp</result>
+        </action>  
+    </package>
+    
+    <include file="struts-admin.xml"/>
+    <include file="struts-financing.xml"/>
+    <include file="struts-auditing.xml"/>
+    <include file="struts-client.xml"/>
+</struts>  

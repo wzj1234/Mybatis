@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.GetEDao">
+    <select id="queryWtByOrgan" resultType="double" useCache="false">
+        <![CDATA[SELECT IFNULL(max(`Wt`),0) FROM `wto` WHERE organ=#{0}]]>
+    </select>
+    <select id="queryGetEByRadioAge" resultType="com.model.GetE" useCache="false">
+        <![CDATA[SELECT * FROM medicine.two WHERE radio=#{0} AND age=#{1}]]>
+    </select>
+</mapper>

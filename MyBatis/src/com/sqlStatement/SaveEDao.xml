@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.SaveEDao">
+    <insert id="insertE" parameterType="com.model.SaveE" >
+        <![CDATA[INSERT IGNORE INTO rae(`radio`,`age`,`E`,`activity`,`unit`,`transI`) VALUES(#{radio},#{age},#{E},#{activity},#{unit},#{transI})]]>
+    </insert>
+    <select id="queryRadioByRadioName" resultType="com.model.Radio" useCache="false">
+        <![CDATA[SELECT * FROM `ra` WHERE radio=#{0}]]>
+    </select>
+    <select id="queryContentByRadioFoodName" resultType="double" useCache="false">
+        <![CDATA[SELECT IFNULL(max(`content`),0) FROM `one` WHERE radio=#{0} AND foodName=#{1}]]>
+    </select>
+    <select id="queryFoodConsumeByFoodNameAge" resultType="double" useCache="false">
+        <![CDATA[SELECT IFNULL(max(foodConsume),0) FROM `four` WHERE `age`=#{0} AND foodName=#{1}]]>
+    </select>
+    <select id="queryRAE" resultType="com.model.SaveE" useCache="false">
+        <![CDATA[SELECT * FROM `rae` WHERE radio=#{0} AND age=#{1} LIMIT 1]]>
+    </select>
+	<insert id="updateRAE" parameterType="com.model.SaveE" >
+        <![CDATA[INSERT IGNORE INTO rae(`radio`,`age`,`E`,`foodName`,`foodType`,`activity`,`unit`,`foodConsume`,`content`,`transI`,`SVi`) VALUES(#{radio},#{age},#{E},#{foodName},#{foodType},#{activity},#{unit},#{foodConsume},#{content},#{transI},#{SVi})]]>
+    </insert>
+	<update id="updateFoodType">
+        <![CDATA[UPDATE `rae` r SET r.foodType=#{foodType} WHERE r.radio=#{radio} AND r.age=#{age}]]>  
+	</update>
+	<select id="queryGetEByRadioFoodType" resultType="com.model.SaveE" useCache="false">
+        <![CDATA[SELECT * FROM `one` WHERE radio=#{0} AND foodType=#{1}]]>
+    </select>
+    <select id="queryGetEByAgeFoodType" resultType="com.model.SaveE" useCache="false">
+        <![CDATA[SELECT * FROM `four` WHERE `age`=#{0} AND foodType=#{1}]]>
+    </select>
+	<insert id="updateSVT" parameterType="com.model.SVTModel" >
+        <![CDATA[INSERT IGNORE INTO svttable(`radio`,`age`,`E`,`foodType`,`activity`,`unit`,`foodConsume`,`foodCount`,`contaver`,`transI`,`SVT`,`LKJ`,`ifExceed`) VALUES(#{radio},#{age},#{E},#{foodType},#{activity},#{unit},#{foodConsume},#{foodCount},#{contaver},#{transI},#{SVT},#{LKJ},#{ifExceed})]]>
+    </insert>
+	<update id="clearRAE">
+        <![CDATA[TRUNCATE TABLE medicine.rae]]>  
+	</update>
+	<update id="clearSVT">
+        <![CDATA[TRUNCATE TABLE medicine.svttable]]>  
+	</update>
+	<update id="clearSVTRA">
+        <![CDATA[TRUNCATE TABLE medicine.svtratable]]>  
+	</update>
+	<select id="queryLKJByRadioFoodType" resultType="double" useCache="false">
+        <![CDATA[SELECT IFNULL(max(`LKJ`),0) FROM `lkjtable` WHERE radio=#{0} AND foodType=#{1}]]>
+    </select>
+    <select id="querySVT" resultType="com.model.SVTModel" useCache="false">
+        <![CDATA[SELECT * FROM `svttable` WHERE `radio`=#{0} AND `age`=#{1} AND `foodType`=#{2} limit 1]]>
+    </select>
+    <insert id="insertSVTRA" parameterType="com.model.SVTRAModel" >
+        <![CDATA[INSERT IGNORE INTO svtratable(`radio`,`age`,`foodConsumeSum`,`SVTRA`) VALUES(#{radio},#{age},#{foodConsumeSum},#{SVTRA})]]>
+    </insert>
+	<update id="alterIfExceedSum">
+        <![CDATA[UPDATE `ra` SET ifExceedSum=#{1} WHERE radio=#{0}]]>  
+	</update>
+	<update id="alterContaver">
+        <![CDATA[UPDATE `lkjtable` SET contaver=#{2} WHERE radio=#{0} AND `foodType`=#{1}]]>  
+	</update>
+	<select id="queryFoodType" resultType="String" useCache="false">
+        <![CDATA[SELECT foodType FROM medicine.six ORDER BY `id` ASC]]>
+    </select>
+    <select id="queryGraphOne" resultType="com.model.GraphOneModel" useCache="false">
+        <![CDATA[SELECT * FROM medicine.lkjtable WHERE radio=#{0}]]>
+    </select>
+    <select id="queryGraphOneHeadByRadio" resultType="com.model.GraphOneHead" useCache="false">
+        <![CDATA[SELECT * FROM medicine.ra WHERE radio=#{0} limit 1]]>
+    </select>
+    
+    <select id="queryGraphTwo" resultType="com.model.SVTModel" useCache="false">
+        <![CDATA[SELECT * FROM medicine.svttable WHERE radio=#{0} AND `age`=#{1}]]>
+    </select>
+    <select id="queryGraphTwoHeadByRadio" resultType="com.model.GraphTwoHead" useCache="false">
+        <![CDATA[SELECT * FROM medicine.svtratable WHERE radio=#{0} AND `age`=#{1} limit 1]]>
+    </select>
+    <select id="queryFoodNameByFoodType" resultType="String" useCache="false">
+        <![CDATA[SELECT foodName FROM medicine.four WHERE foodType=#{0} AND `age`=#{1}]]>
+    </select>
+    <select id="queryPSW" resultType="String" useCache="false">
+        <![CDATA[SELECT managerPSW FROM medicine.user WHERE managerName=#{0}]]>
+    </select>
+    
+    <select id="queryOrganWt" resultType="com.model.OrganWt" useCache="false">
+        <![CDATA[SELECT * FROM medicine.wto]]>
+    </select>
+    <select id="queryOrganContent" resultType="com.model.OrganContent" useCache="false">
+        <![CDATA[SELECT * FROM medicine.two]]>
+    </select>
+    <select id="queryRadioList" resultType="com.model.Radio" useCache="false">
+        <![CDATA[SELECT * FROM medicine.ra]]>
+    </select>
+    <select id="queryFoodConsumeList" resultType="com.model.FoodConsume" useCache="false">
+        <![CDATA[SELECT * FROM medicine.four]]>
+    </select>
+    <select id="queryFoodContentList" resultType="com.model.FoodContent" useCache="false">
+        <![CDATA[SELECT * FROM medicine.one]]>
+    </select>
+    
+    <select id="queryLKJ" resultType="com.model.GraphOneModel" useCache="false">
+        <![CDATA[SELECT * FROM medicine.lkjtable]]>
+    </select>
+    
+    <insert id="insertRAETable" parameterType="com.model.SaveE" >
+        REPLACE INTO rae (radio,age,E,foodName,foodType,activity,unit,foodConsume,content,transI,SVi) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.radio},#{item.age},#{item.E},#{item.foodName},#{item.foodType},#{item.activity},#{item.unit},#{item.foodConsume},#{item.content},#{item.transI},#{item.SVi})
+        </foreach>
+    </insert>
+    <insert id="insertSVTTable" parameterType="com.model.SVTModel" >
+        REPLACE INTO svttable (radio,age,E,foodType,unit,foodConsume,foodCount,contaver,transI,activity,SVT) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.radio},#{item.age},#{item.E},#{item.foodType},#{item.unit},#{item.foodConsume},#{item.foodCount},#{item.contaver},#{item.transI},#{item.activity},#{item.SVT})
+        </foreach>
+    </insert>
+    <update id="clearLKJTABLE">
+        <![CDATA[TRUNCATE TABLE medicine.lkjtable]]>  
+	</update>
+	<insert id="insertLKJTABLE" parameterType="com.model.GraphOneModel" >
+        REPLACE INTO lkjtable (radio,foodType,contaver,LKJ) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.radio},#{item.foodType},#{item.contaver},#{item.LKJ})
+        </foreach>
+    </insert>
+    <update id="clearRA">
+        <![CDATA[TRUNCATE TABLE medicine.ra]]>  
+	</update>
+    <insert id="insertRATABLE" parameterType="com.model.Radio" >
+        REPLACE INTO medicine.ra (radio,activity,unit,ifExceedSum) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.radio},#{item.activity},#{item.unit},#{item.ifExceedSum})
+        </foreach>
+    </insert>
+    <insert id="insertSVTRATable" parameterType="com.model.SVTRAModel" >
+        REPLACE INTO medicine.svtratable (radio,age,foodConsumeSum,SVTRA) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.radio},#{item.age},#{item.foodConsumeSum},#{item.SVTRA})
+        </foreach>
+    </insert>
+    <select id="queryAgeList" resultType="String" useCache="false">
+        <![CDATA[SELECT ageValue FROM medicine.age]]>
+    </select>
+    <select id="queryFoodTypeList" resultType="com.model.FoodTypeModel" useCache="false">
+        <![CDATA[SELECT * FROM medicine.six]]>
+    </select>
+    <select id="queryRAEList" resultType="com.model.SaveE" useCache="false">
+        <![CDATA[SELECT * FROM medicine.rae]]>
+    </select>
+    <select id="querySVTList" resultType="com.model.SVTModel" useCache="false">
+        <![CDATA[SELECT * FROM medicine.svttable]]>
+    </select>
+    <select id="querySVTRAList" resultType="com.model.SVTRAModel" useCache="false">
+        <![CDATA[SELECT * FROM medicine.svtratable]]>
+    </select>
+    <select id="queryLKJList" resultType="com.model.GraphOneModel" useCache="false">
+        <![CDATA[SELECT * FROM medicine.lkjtable]]>
+    </select>
+    <select id="queryRadioByRadios" resultType="com.model.Radio" parameterType="java.lang.String">
+    Select * from medicine.ra where radio in
+     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                   #{item}
+     </foreach>
+ 	</select>
+ 	<select id="queryRAEByRadios" resultType="com.model.SaveE" parameterType="java.lang.String">
+    Select * from medicine.rae where radio in
+     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                   #{item}
+     </foreach>
+ 	</select>
+ 	<select id="querySVTByRadios" resultType="com.model.SVTModel" parameterType="java.lang.String">
+    Select * from medicine.svttable where radio in
+     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                   #{item}
+     </foreach>
+ 	</select>
+ 	<select id="querySVTRAByRadios" resultType="com.model.SVTRAModel" parameterType="java.lang.String">
+    Select * from medicine.svtratable where radio in
+     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                   #{item}
+     </foreach>
+ 	</select>
+ 	<select id="queryGraphTwoByRadios" resultType="com.model.SVTModel" parameterType="java.lang.String">
+    Select * from medicine.svttable where radio in
+     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                   #{item}
+     </foreach>
+ 	</select>
+ 	<select id="queryGraphTwoByRadiosNorUser" resultType="com.model.SVTModel" parameterType="java.lang.String">
+    Select * from medicine.svttablenoruser where radio in
+     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                   #{item}
+     </foreach>
+ 	</select>
+ 	<select id="queryLKJByRadios" resultType="com.model.GraphOneModel" parameterType="java.lang.String">
+    Select * from medicine.lkjtable where radio in
+     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                   #{item}
+     </foreach>
+ 	</select>
+ 	
+ 	
+ 	<update id="clearRAENorUser">
+        <![CDATA[TRUNCATE TABLE medicine.raenoruser]]>  
+	</update>
+	<update id="clearSVTNorUser">
+        <![CDATA[TRUNCATE TABLE medicine.svttablenoruser]]>  
+	</update>
+	<update id="clearSVTRANorUser">
+        <![CDATA[TRUNCATE TABLE medicine.svtratablenoruser]]>  
+	</update>
+ 	<select id="queryNorUserFoodConsumeList" resultType="com.model.FoodConsume" useCache="false">
+        <![CDATA[SELECT * FROM medicine.fournoruser]]>
+    </select>
+    <select id="queryNorUserFoodConsumeSum" resultType="double" useCache="false">
+        <![CDATA[SELECT sum(foodConsume) FROM medicine.fournoruser]]>
+    </select>
+    <select id="queryNorUserFoodContentList" resultType="com.model.FoodContent" useCache="false">
+        <![CDATA[SELECT * FROM medicine.onenoruser]]>
+    </select>
+    <select id="queryNorUserFoodContentSum" resultType="double" useCache="false">
+        <![CDATA[SELECT sum(content) FROM medicine.onenoruser]]>
+    </select>
+ 	    <select id="queryNorUserFoodTypeList" resultType="com.model.FoodTypeModel" useCache="false">
+        <![CDATA[SELECT * FROM medicine.sixnoruser]]>
+    </select>
+    <insert id="insertRAETableNorUser" parameterType="com.model.SaveE" >
+        REPLACE INTO raenoruser (radio,age,E,foodName,foodType,activity,unit,foodConsume,content,transI,SVi) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.radio},#{item.age},#{item.E},#{item.foodName},#{item.foodType},#{item.activity},#{item.unit},#{item.foodConsume},#{item.content},#{item.transI},#{item.SVi})
+        </foreach>
+    </insert>
+    <insert id="insertSVTTableNorUser" parameterType="com.model.SVTModel" >
+        REPLACE INTO svttablenoruser (radio,age,E,foodType,unit,foodConsume,foodCount,contaver,transI,activity,SVT) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.radio},#{item.age},#{item.E},#{item.foodType},#{item.unit},#{item.foodConsume},#{item.foodCount},#{item.contaver},#{item.transI},#{item.activity},#{item.SVT})
+        </foreach>
+    </insert>
+    <insert id="insertSVTRATableNorUser" parameterType="com.model.SVTRAModel" >
+        REPLACE INTO medicine.svtratablenoruser (radio,age,foodConsumeSum,SVTRA) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.radio},#{item.age},#{item.foodConsumeSum},#{item.SVTRA})
+        </foreach>
+    </insert>
+    <update id="clearLKJTABLENorUser">
+        <![CDATA[TRUNCATE TABLE medicine.lkjtablenoruser]]>  
+	</update>
+	<insert id="insertLKJTABLENorUser" parameterType="com.model.GraphOneModel" >
+        REPLACE INTO lkjtablenoruser (radio,foodType,contaver,LKJ) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.radio},#{item.foodType},#{item.contaver},#{item.LKJ})
+        </foreach>
+    </insert>
+    <update id="clearRANorUser">
+        <![CDATA[TRUNCATE TABLE medicine.ranoruser]]>  
+	</update>
+	<insert id="insertRATABLENorUser" parameterType="com.model.Radio" >
+        REPLACE INTO medicine.ranoruser (radio,activity,unit,ifExceedSum) VALUES
+		<foreach collection="list" item="item" open="" close="" separator="," >
+			(#{item.radio},#{item.activity},#{item.unit},#{item.ifExceedSum})
+        </foreach>
+    </insert>
+    
+    <select id="queryGraphOneNorUser" resultType="com.model.GraphOneModel" useCache="false">
+        <![CDATA[SELECT * FROM medicine.lkjtablenoruser WHERE radio=#{0}]]>
+    </select>
+    <select id="queryGraphOneHeadByRadioNorUser" resultType="com.model.GraphOneHead" useCache="false">
+        <![CDATA[SELECT * FROM medicine.ranoruser WHERE radio=#{0} limit 1]]>
+    </select>
+    <select id="queryGraphTwoNorUser" resultType="com.model.SVTModel" useCache="false">
+        <![CDATA[SELECT * FROM medicine.svttablenoruser WHERE radio=#{0} AND `age`=#{1}]]>
+    </select>
+    <select id="queryGraphTwoHeadByRadioNorUser" resultType="com.model.GraphTwoHead" useCache="false">
+        <![CDATA[SELECT * FROM medicine.svtratablenoruser WHERE radio=#{0} AND `age`=#{1} limit 1]]>
+    </select>
+    <select id="queryRadioListNorUser" resultType="com.model.Radio" useCache="false">
+        <![CDATA[SELECT * FROM medicine.ranoruser]]>
+    </select>
+        <select id="queryRAEListNorUser" resultType="com.model.SaveE" useCache="false">
+        <![CDATA[SELECT * FROM medicine.raenoruser]]>
+    </select>
+        <select id="querySVTListNorUser" resultType="com.model.SVTModel" useCache="false">
+        <![CDATA[SELECT * FROM medicine.svttablenoruser]]>
+    </select>
+        <select id="querySVTRAListNorUser" resultType="com.model.SVTRAModel" useCache="false">
+        <![CDATA[SELECT * FROM medicine.svtratablenoruser]]>
+    </select>
+        <select id="queryLKJListNorUser" resultType="com.model.GraphOneModel" useCache="false">
+        <![CDATA[SELECT * FROM medicine.lkjtablenoruser]]>
+    </select>
+    <select id="queryRadioByRadiosNorUser" resultType="com.model.Radio" parameterType="java.lang.String">
+    Select * from medicine.ranoruser where radio in
+     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                   #{item}
+     </foreach>
+ 	</select>
+ 	<select id="queryRAEByRadiosNorUser" resultType="com.model.SaveE" parameterType="java.lang.String">
+    Select * from medicine.raenoruser where radio in
+     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                   #{item}
+     </foreach>
+ 	</select>
+ 	<select id="querySVTByRadiosNorUser" resultType="com.model.SVTModel" parameterType="java.lang.String">
+    Select * from medicine.svttablenoruser where radio in
+     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                   #{item}
+     </foreach>
+ 	</select>
+ 	<select id="querySVTRAByRadiosNorUser" resultType="com.model.SVTRAModel" parameterType="java.lang.String">
+    Select * from medicine.svtratablenoruser where radio in
+     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                   #{item}
+     </foreach>
+ 	</select>
+ 	<select id="queryLKJByRadiosNorUser" resultType="com.model.GraphOneModel" parameterType="java.lang.String">
+    Select * from medicine.lkjtablenoruser where radio in
+     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                   #{item}
+     </foreach>
+ 	</select>
+</mapper>
